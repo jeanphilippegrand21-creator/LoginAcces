@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sécurité du Compte - Connexion Bloquée</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-container">
+        <header class="header">
+            <div class="logo-placeholder">
+                <span class="logo-icon">🔒</span>
+                <span class="logo-text">SecureCorp</span>
+            </div>
+        </header>
+
+        <div class="alert-card animate-in">
+            <div class="icon-container">
+                <div class="warning-shield pulse">
+                    <span class="exclamation">!</span>
+                </div>
+            </div>
+
+            <h1 class="alert-title">Tentative de connexion bloquée </h1>
+            
+            <p class="alert-message">
+                Nous avons détecté une tentative de connexion à votre compte depuis un *nouvel emplacement*.
+            </p>
+            
+            <p class="alert-submessage">
+                L'accès a été suspendu par mesure de sécurité. Veuillez vérifier les détails ci-dessous.
+            </p>
+
+            <div class="details-box">
+                <p><strong>Détails de la tentative :</strong></p>
+                <ul>
+                    <li>Emplacement : <span id="user-location" class="highlight">Détection en cours...</span></li>
+                    <li>Date/Heure : <span class="highlight">23 Mars 2026, 13:12 GMT</span></li>
+                    <li>Statut : <span class="highlight" style="color: #d93025;">Accès bloqué</span></li>
+                </ul>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary">Confirmer mon identité</button>
+                <button class="btn btn-secondary">Ce n'était pas moi</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 SecureCorp Security. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script>
+        // On appelle une API publique pour récupérer les infos de l'utilisateur
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                const locationElement = document.getElementById('user-location');
+                // Affiche "Ville, Pays" (ex: Warsaw, Poland)
+                if(data.city && data.country_name) {
+                    locationElement.textContent = ${data.city}, ${data.country_name};
+                } else {
+                    locationElement.textContent = "Emplacement non répertorié";
+                }
+            })
+            .catch(error => {
+                document.getElementById('user-location').textContent = "Erreur de détection";
+            });
+    </script>
+</body>
+</html>

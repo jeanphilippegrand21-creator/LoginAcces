@@ -4,10 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sécurité du Compte - Connexion Bloquée</title>
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Styles Généraux --- */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- En-tête --- */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .logo-icon { font-size: 24px; }
+        .logo-text { font-size: 20px; font-weight: 700; color: #444; }
+
+        /* --- Carte d'Alerte --- */
+        .alert-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-top: 4px solid #d93025;
+            /* Animation d'entrée */
+            animation: fadeInSlide 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Icône et Animation Pulse --- */
+        .warning-shield {
+            width: 65px;
+            height: 65px;
+            background-color: #fce8e6;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #d93025;
+            animation: pulseRed 2s infinite;
+        }
+
+        @keyframes pulseRed {
+            0% { box-shadow: 0 0 0 0 rgba(217, 48, 37, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(217, 48, 37, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 48, 37, 0); }
+        }
+
+        .exclamation { font-size: 35px; font-weight: 700; color: #d93025; }
+
+        /* --- Textes --- */
+        .alert-title { font-size: 22px; font-weight: 500; margin-bottom: 15px; color: #202124; }
+        .alert-message { font-size: 15px; line-height: 1.5; margin-bottom: 10px; }
+        .alert-submessage { font-size: 13px; color: #5f6368; margin-bottom: 20px; }
+
+        /* --- Boîte de Détails --- */
+        .details-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .details-box ul { list-style: none; padding: 0; margin: 5px 0 0 0; }
+        .details-box li { margin-bottom: 5px; color: #5f6368; }
+        .highlight { color: #202124; font-weight: 500; }
+
+        /* --- Boutons --- */
+        .action-buttons { display: flex; flex-direction: column; gap: 10px; }
+        .btn { padding: 12px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; transition: 0.2s; }
+        .btn-primary { background-color: #1a73e8; color: white; }
+        .btn-primary:hover { background-color: #1557b0; }
+        .btn-secondary { background-color: transparent; color: #1a73e8; border: 1px solid #dadce0; }
+        .btn-secondary:hover { background-color: #f8f9fa; }
+
+        .footer { margin-top: 25px; text-align: center; font-size: 11px; color: #70757a; }
+    </style>
 </head>
 <body>
 
@@ -19,58 +125,49 @@
             </div>
         </header>
 
-        <div class="alert-card animate-in">
-            <div class="icon-container">
-                <div class="warning-shield pulse">
-                    <span class="exclamation">!</span>
-                </div>
+        <div class="alert-card">
+            <div class="warning-shield">
+                <span class="exclamation">!</span>
             </div>
 
-            <h1 class="alert-title">Tentative de connexion bloquée </h1>
-            
-            <p class="alert-message">
-                Nous avons détecté une tentative de connexion à votre compte depuis un *nouvel emplacement*.
-            </p>
-            
-            <p class="alert-submessage">
-                L'accès a été suspendu par mesure de sécurité. Veuillez vérifier les détails ci-dessous.
-            </p>
+            <h1 class="alert-title">Tentative de connexion bloquée</h1>
+            <p class="alert-message">Un accès inhabituel a été détecté sur votre compte.</p>
+            <p class="alert-submessage">Pour votre protection, nous avons temporairement restreint l'accès depuis cet appareil.</p>
 
             <div class="details-box">
-                <p><strong>Détails de la tentative :</strong></p>
+                <p><strong>Informations de connexion :</strong></p>
                 <ul>
-                    <li>Emplacement : <span id="user-location" class="highlight">Détection en cours...</span></li>
-                    <li>Date/Heure : <span class="highlight">23 Mars 2026, 18:12 GMT</span></li>
-                    <li>Statut : <span class="highlight" style="color: #d93025;">Accès bloqué</span></li>
+                    <li>Emplacement : <span id="user-location" class="highlight">Analyse de l'IP...</span></li>
+                    <li>Date : <span class="highlight">23 Mars 2026</span></li>
+                    <li>Action : <span class="highlight" style="color: #d93025;">Blocage automatique</span></li>
                 </ul>
             </div>
 
             <div class="action-buttons">
-                <button class="btn btn-primary">Confirmer mon identité</button>
+                <button class="btn btn-primary">C'est moi, débloquer l'accès</button>
                 <button class="btn btn-secondary">Ce n'était pas moi</button>
             </div>
         </div>
 
         <footer class="footer">
-            <p>&copy; 2026 SecureCorp Security. Tous droits réservés.</p>
+            <p>&copy; 2026 SecureCorp Global Security. Identifiant : SC-339-PRO</p>
         </footer>
     </div>
 
     <script>
-        // On appelle une API publique pour récupérer les infos de l'utilisateur
+        // Script pour détecter l'emplacement réel de l'utilisateur via son IP
         fetch('https://ipapi.co/json/')
             .then(response => response.json())
             .then(data => {
-                const locationElement = document.getElementById('user-location');
-                // Affiche "Ville, Pays" (ex: Warsaw, Poland)
+                const loc = document.getElementById('user-location');
                 if(data.city && data.country_name) {
-                    locationElement.textContent = ${data.city}, ${data.country_name};
+                    loc.textContent = ${data.city}, ${data.country_name};
                 } else {
-                    locationElement.textContent = "Emplacement non répertorié";
+                    loc.textContent = "Emplacement indéterminé";
                 }
             })
-            .catch(error => {
-                document.getElementById('user-location').textContent = "Erreur de détection";
+            .catch(() => {
+                document.getElementById('user-location').textContent = "Erreur de localisation";
             });
     </script>
 </body>
